@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New To Coding - Learn Coding for Everyone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="A community resource for anyone to learn code and accomplish their goals">
+</head>
+<body>
+    <!-- Particles background container -->
+    <div id="particles-js"></div>
+    
+    <header>
+        <div class="container">
+            <div class="logo">
+                <span class="code-brackets">&lt; / &gt;</span>
+                <h1>NewToCoding</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="#success-stories">Success Stories</a></li>
+                    <li><a href="#contact" class="btn-primary">Join Us</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="animated-title">Learn to <span class="gradient-text">Code</span> and Build Your Future</h1>
+                <p class="fade-in">A community resource for anyone to learn coding skills and accomplish their goals, no matter where they're starting from.</p>
+                <div class="hero-buttons fade-in">
+                    <a href="#resources" class="btn-primary">Get Started</a>
+                    <a href="#community" class="btn-secondary">Join Community</a>
+                </div>
+                <!-- Typing effect container -->
+                <div class="typing-container fade-in">
+                    <span class="typing-prefix">Learn: </span>
+                    <span id="typing-text"></span>
+                    <span class="typing-cursor">|</span>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="code-window interactive">
+                    <div class="window-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">hello-world.js</span>
+                    </div>
+                    <div class="code-editor">
+                        <pre><code id="code-animation">
+<span class="comment">// Your first program</span>
+<span class="keyword">function</span> <span class="function">helloWorld</span>() {
+  <span class="keyword">const</span> <span class="variable">message</span> = <span class="string">"Hello, World!"</span>;
+  <span class="keyword">const</span> <span class="variable">coder</span> = <span class="string">"New Coder"</span>;
+  
+  <span class="builtin">console</span>.log(<span class="string">`${message} Welcome, ${coder}!`</span>);
+  
+  <span class="keyword">return</span> <span class="string">"Success!"</span>;
+}
+
+<span class="comment">// Start your coding journey</span>
+helloWorld();</code></pre>
+                    </div>
+                    <div class="code-output">
+                        <div class="output-header">Console Output</div>
+                        <div id="console-output"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Floating tech icons -->
+        <div class="floating-icons">
+            <div class="tech-icon" data-speed="1"><i class="fab fa-html5"></i></div>
+            <div class="tech-icon" data-speed="2"><i class="fab fa-css3-alt"></i></div>
+            <div class="tech-icon" data-speed="1.5"><i class="fab fa-js"></i></div>
+            <div class="tech-icon" data-speed="2.5"><i class="fab fa-react"></i></div>
+            <div class="tech-icon" data-speed="1.8"><i class="fab fa-node-js"></i></div>
+            <div class="tech-icon" data-speed="2.2"><i class="fab fa-python"></i></div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="reveal-text">Why Learn to Code?</h2>
+                <p>Coding opens doors to new opportunities and empowers you to build solutions for problems you care about.</p>
+            </div>
+            <div class="benefits">
+                <div class="benefit-card" data-tilt>
+                    <div class="icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Career Opportunities</h3>
+                    <p>Unlock high-demand tech jobs and future-proof your career with valuable coding skills.</p>
+                </div>
+                <div class="benefit-card" data-tilt>
+                    <div class="icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Problem Solving</h3>
+                    <p>Develop analytical thinking and tackle complex problems with structured approaches.</p>
+                </div>
+                <div class="benefit-card" data-tilt>
+                    <div class="icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3>Build Your Ideas</h3>
+                    <p>Turn your creative visions into reality by building your own websites, apps, and tools.</p>
+                </div>
+                <div class="benefit-card" data-tilt>
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Join a Community</h3>
+                    <p>Connect with fellow learners and experienced developers who can support your journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources" class="resources">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="reveal-text">Learning Resources</h2>
+                <p>Everything you need to start your coding journey, from beginner-friendly tutorials to advanced projects.</p>
+            </div>
+            <div class="resource-tracks">
+                <div class="resource-card">
+                    <div class="card-header beginner">
+                        <h3>Beginner Path</h3>
+                    </div>
+                    <div class="card-content">
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> HTML & CSS Fundamentals</li>
+                            <li><i class="fas fa-check-circle"></i> JavaScript Basics</li>
+                            <li><i class="fas fa-check-circle"></i> Command Line Introduction</li>
+                            <li><i class="fas fa-check-circle"></i> Build Your First Website</li>
+                            <li><i class="fas fa-check-circle"></i> Understanding Git</li>
+                        </ul>
+                        <a href="#" class="btn-primary">Start Learning</a>
+                    </div>
+                    <div class="progress-indicator">
+                        <div class="progress-bar" data-percent="100"></div>
+                        <div class="progress-text">Perfect for beginners</div>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-header intermediate">
+                        <h3>Intermediate Path</h3>
+                    </div>
+                    <div class="card-content">
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Frontend Frameworks</li>
+                            <li><i class="fas fa-check-circle"></i> API Integration</li>
+                            <li><i class="fas fa-check-circle"></i> Responsive Design</li>
+                            <li><i class="fas fa-check-circle"></i> Backend Basics</li>
+                            <li><i class="fas fa-check-circle"></i> Database Fundamentals</li>
+                        </ul>
+                        <a href="#" class="btn-primary">Explore Topics</a>
+                    </div>
+                    <div class="progress-indicator">
+                        <div class="progress-bar" data-percent="65"></div>
+                        <div class="progress-text">Level up your skills</div>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-header advanced">
+                        <h3>Advanced Path</h3>
+                    </div>
+                    <div class="card-content">
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Full-Stack Development</li>
+                            <li><i class="fas fa-check-circle"></i> Cloud Deployment</li>
+                            <li><i class="fas fa-check-circle"></i> Testing & DevOps</li>
+                            <li><i class="fas fa-check-circle"></i> Performance Optimization</li>
+                            <li><i class="fas fa-check-circle"></i> Advanced Projects</li>
+                        </ul>
+                        <a href="#" class="btn-primary">Challenge Yourself</a>
+                    </div>
+                    <div class="progress-indicator">
+                        <div class="progress-bar" data-percent="35"></div>
+                        <div class="progress-text">Master advanced concepts</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="community" class="community">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="reveal-text">Join Our Community</h2>
+                <p>Connect with fellow learners, share your progress, and get help when you're stuck.</p>
+            </div>
+            <div class="community-features">
+                <div class="feature">
+                    <i class="fas fa-comments"></i>
+                    <h3>Discussion Forums</h3>
+                    <p>Ask questions, share solutions, and discuss coding concepts with peers and mentors.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Code Reviews</h3>
+                    <p>Get constructive feedback on your projects from experienced developers.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Virtual Meetups</h3>
+                    <p>Join weekly coding sessions, workshops, and networking events.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-project-diagram"></i>
+                    <h3>Collaborative Projects</h3>
+                    <p>Work with others on real-world projects to build your portfolio.</p>
+                </div>
+            </div>
+            <div class="community-cta">
+                <a href="#" class="btn-primary pulse">Join Our Discord</a>
+                <a href="#" class="btn-secondary">Browse Forums</a>
+            </div>
+            
+            <!-- Community stats counter -->
+            <div class="community-stats">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="15000">0</div>
+                    <div class="stat-label">Community Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-label">Weekly Meetups</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="10000">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="success-stories" class="success-stories">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="reveal-text">Success Stories</h2>
+                <p>Read about real people who transformed their careers and lives through coding.</p>
+            </div>
+            <div class="stories-slider">
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Sarah Johnson">
+                    </div>
+                    <div class="story-content">
+                        <h3>Sarah Johnson</h3>
+                        <p class="story-role">Former Teacher → Front-End Developer</p>
+                        <p class="story-text">"After 10 years in education, I wanted a new challenge. I started learning HTML and CSS in my free time, and within 8 months I had built a portfolio and landed my first developer job. Now I work remotely, earn twice my previous salary, and love what I do every day."</p>
+                        <div class="story-tech-stack">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>React</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Marcus Chen">
+                    </div>
+                    <div class="story-content">
+                        <h3>Marcus Chen</h3>
+                        <p class="story-role">Retail Manager → Full Stack Developer</p>
+                        <p class="story-text">"I had no technical background but was always interested in how websites worked. I started with free online courses, then joined a coding bootcamp. The learning curve was steep, but the NewToCoding community helped me whenever I got stuck. Now I'm building apps that millions of people use!"</p>
+                        <div class="story-tech-stack">
+                            <span>JavaScript</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                            <span>Express</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1619343177259-451f3590839a?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Priya Sharma">
+                    </div>
+                    <div class="story-content">
+                        <h3>Priya Sharma</h3>
+                        <p class="story-role">Accounting Assistant → Data Scientist</p>
+                        <p class="story-text">"I started learning Python to automate repetitive tasks at my accounting job. What began as a practical solution turned into a passion for data analysis. After a year of dedicated learning, I transitioned to a data science role where I help companies make better decisions through data."</p>
+                        <div class="story-tech-stack">
+                            <span>Python</span>
+                            <span>SQL</span>
+                            <span>Pandas</span>
+                            <span>TensorFlow</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="prev-btn" aria-label="Previous story"><i class="fas fa-chevron-left"></i></button>
+                <div class="slider-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                </div>
+                <button class="next-btn" aria-label="Next story"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="stories-cta">
+                <a href="#" class="btn-primary">Share Your Story</a>
+                <a href="#" class="btn-secondary">Read More Stories</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="reveal-text">Stay Connected</h2>
+                <p>Sign up for our newsletter to receive the latest resources, events, and coding tips.</p>
+            </div>
+            <div class="contact-wrapper">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Coding Experience</label>
+                        <select id="experience" name="experience">
+                            <option value="none">No experience yet</option>
+                            <option value="beginner">Beginner (0-6 months)</option>
+                            <option value="intermediate">Intermediate (6-12 months)</option>
+                            <option value="advanced">Advanced (1+ years)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Subscribe</button>
+                </form>
+                <div class="social-links">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Twitter" class="social-icon-hover"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="GitHub" class="social-icon-hover"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Discord" class="social-icon-hover"><i class="fab fa-discord"></i></a>
+                        <a href="#" aria-label="YouTube" class="social-icon-hover"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="code-brackets">&lt; / &gt;</span>
+                    <h2>NewToCoding</h2>
+                    <p>Making coding accessible for everyone</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="#">Tutorials</a></li>
+                            <li><a href="#">Documentation</a></li>
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Roadmaps</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h3>Community</h3>
+                        <ul>
+                            <li><a href="#">Forums</a></li>
+                            <li><a href="#">Discord</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="#success-stories">Success Stories</a></li>
+                            <li><a href="#">Contribute</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 NewToCoding.com. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme toggle button -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Back to top button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- External libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
