@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewToCoding - CSS Diagnostics</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .test-box {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        button {
+            padding: 8px 16px;
+            background: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 10px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>NewToCoding CSS Diagnostics</h1>
+    
+    <div class="test-box">
+        <h2>1. Test stylesheet loading</h2>
+        <button onclick="testStylesheets()">Test Stylesheets</button>
+        <div id="stylesheet-result" class="result"></div>
+    </div>
+    
+    <div class="test-box">
+        <h2>2. Test font loading</h2>
+        <button onclick="testFonts()">Test Fonts</button>
+        <div id="font-result" class="result"></div>
+    </div>
+    
+    <div class="test-box">
+        <h2>3. Check current path</h2>
+        <p>Current path: <code id="current-path"></code></p>
+    </div>
+    
+    <div class="test-box">
+        <h2>4. CSS Variables Test</h2>
+        <button onclick="testCSSVars()">Test CSS Variables</button>
+        <div id="css-vars-result" class="result"></div>
+    </div>
+
+    <div class="test-box">
+        <h2>5. Browser Console Errors</h2>
+        <p>Open your browser's developer tools (F12) and check the Console tab for any errors.</p>
+    </div>
+
+    <p><a href="index.html">Return to homepage</a></p>
+
+    <script>
+        // Display current path
+        document.getElementById('current-path').textContent = window.location.href;
+        
+        // Test if stylesheets are loading
+        function testStylesheets() {
+            const result = document.getElementById('stylesheet-result');
+            result.innerHTML = '';
+            
+            const stylesheets = document.styleSheets;
+            let output = `<p>Found ${stylesheets.length} stylesheets:</p><ul>`;
+            
+            for (let i = 0; i < stylesheets.length; i++) {
+                try {
+                    const href = stylesheets[i].href || 'inline style';
+                    output += `<li>${href} - Rules: ${stylesheets[i].cssRules ? stylesheets[i].cssRules.length : 'Cannot read rules (CORS)'}</li>`;
+                } catch (e) {
+                    output += `<li>Error accessing stylesheet: ${e.message}</li>`;
+                }
+            }
+            
+            output += '</ul>';
+            result.innerHTML = output;
+        }
+        
+        // Test if fonts are loading
+        function testFonts() {
+            const result = document.getElementById('font-result');
+            
+            if (!document.fonts) {
+                result.innerHTML = 'Font loading API not supported in this browser';
+                return;
+            }
+            
+            result.innerHTML = 'Testing fonts...';
+            
+            // Create test elements with different fonts
+            const testFira = document.createElement('span');
+            testFira.style.fontFamily = "'Fira Code', monospace";
+            testFira.textContent = 'Testing Fira Code';
+            document.body.appendChild(testFira);
+            
+            setTimeout(() => {
+                try {
+                    const fontFira = window.getComputedStyle(testFira).fontFamily;
+                    result.innerHTML = `
+                        <p>Fira Code font: ${fontFira.includes('Fira Code') ? 'LOADED ✓' : 'NOT LOADED ✗'}</p>
+                        <p>Raw font value: ${fontFira}</p>
+                    `;
+                } catch (e) {
+                    result.innerHTML = `Error testing fonts: ${e.message}`;
+                }
+                
+                // Clean up
+                document.body.removeChild(testFira);
+            }, 500);
+        }
+        
+        // Test CSS Variables
+        function testCSSVars() {
+            const result = document.getElementById('css-vars-result');
+            const styles = getComputedStyle(document.documentElement);
+            
+            const varsToCheck = [
+                '--primary-color',
+                '--secondary-color',
+                '--text-color',
+                '--bg-color',
+                '--font-code',
+                '--font-main'
+            ];
+            
+            let output = '<ul>';
+            varsToCheck.forEach(variable => {
+                const value = styles.getPropertyValue(variable);
+                output += `<li>${variable}: ${value || 'Not defined'}</li>`;
+            });
+            output += '</ul>';
+            
+            result.innerHTML = output;
+        }
+    </script>
+</body>
+</html> 
