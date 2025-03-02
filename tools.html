@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Tools - NewToCoding</title>
+    <!-- Preload critical resources -->
+    <link rel="preload" href="fonts/FiraCode-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
+    <!-- Stylesheets in order of importance -->
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="AI tools and resources to help beginners learn to code effectively">
+</head>
+<body>
+    <!-- Particles background container -->
+    <div id="particles-js"></div>
+    
+    <header>
+        <div class="container">
+            <div class="logo">
+                <span class="code-brackets">&lt; / &gt;</span>
+                <h1>NewToCoding</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="posts.html">Posts</a></li>
+                    <li><a href="games.html">Games</a></li>
+                    <li><a href="tools.html" class="active">Tools</a></li>
+                    <li><a href="index.html#community">Community</a></li>
+                    <li><a href="index.html#contact" class="btn-primary">Join Us</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">AI Coding Tools</h1>
+            <p class="page-description">Discover tools that make learning to code easier and more accessible</p>
+        </div>
+    </section>
+
+    <section class="tools-showcase">
+        <div class="container">
+            <div class="tools-categories">
+                <button class="category-btn active" data-category="all">All Tools</button>
+                <button class="category-btn" data-category="assistants">AI Assistants</button>
+                <button class="category-btn" data-category="generators">Code Generators</button>
+                <button class="category-btn" data-category="learning">Learning Tools</button>
+            </div>
+            
+            <div class="tools-grid">
+                <!-- Tool 1 -->
+                <div class="tool-showcase-card" data-category="assistants">
+                    <div class="tool-logo">
+                        <img src="https://placehold.co/200x200/4361ee/FFFFFF?text=AI" alt="AI Assistant Tool">
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">AI Code Assistants</h3>
+                        <p class="tool-description">AI-powered coding assistants that help you write, explain, and debug code in real-time.</p>
+                        <div class="tool-features">
+                            <span class="feature-pill">Code Completion</span>
+                            <span class="feature-pill">Error Fixing</span>
+                            <span class="feature-pill">Learning Support</span>
+                        </div>
+                        <div class="tool-links">
+                            <a href="#" class="tool-link primary">Explore Options <i class="fas fa-external-link-alt"></i></a>
+                            <a href="#" class="tool-link secondary">Read Guide</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tool 2 -->
+                <div class="tool-showcase-card" data-category="generators">
+                    <div class="tool-logo">
+                        <img src="https://placehold.co/200x200/7209b7/FFFFFF?text=Gen" alt="Code Generator">
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">AI Code Generators</h3>
+                        <p class="tool-description">Tools that can generate entire projects or components from natural language descriptions.</p>
+                        <div class="tool-features">
+                            <span class="feature-pill">Full Project Generation</span>
+                            <span class="feature-pill">Component Creation</span>
+                            <span class="feature-pill">Customization</span>
+                        </div>
+                        <div class="tool-links">
+                            <a href="#" class="tool-link primary">See Examples <i class="fas fa-external-link-alt"></i></a>
+                            <a href="#" class="tool-link secondary">Read Guide</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tool 3 -->
+                <div class="tool-showcase-card" data-category="learning">
+                    <div class="tool-logo">
+                        <img src="https://placehold.co/200x200/ff6b6b/FFFFFF?text=Learn" alt="Learning Platform">
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">AI Learning Platforms</h3>
+                        <p class="tool-description">Interactive platforms that adapt to your learning style and pace to teach programming concepts.</p>
+                        <div class="tool-features">
+                            <span class="feature-pill">Personalized Learning</span>
+                            <span class="feature-pill">Interactive Exercises</span>
+                            <span class="feature-pill">Progress Tracking</span>
+                        </div>
+                        <div class="tool-links">
+                            <a href="#" class="tool-link primary">Try Platforms <i class="fas fa-external-link-alt"></i></a>
+                            <a href="#" class="tool-link secondary">Read Comparison</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tools-guide">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="reveal-text">How to Choose the Right Tools</h2>
+                <p>Finding the right tools for your learning journey can make a big difference in your progress.</p>
+            </div>
+            
+            <div class="guide-steps">
+                <div class="guide-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Identify Your Goals</h3>
+                        <p>Different tools serve different purposes. Are you building a website, creating an app, or learning data science?</p>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Consider Your Experience Level</h3>
+                        <p>Some tools are more suitable for complete beginners, while others offer more advanced capabilities.</p>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Try Before Committing</h3>
+                        <p>Most tools offer free trials or limited free tiers. Test them out to find what works best for your learning style.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tools-cta">
+                <a href="posts.html" class="btn-primary">Read Our AI Tools Guides</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="code-brackets">&lt; / &gt;</span>
+                    <h2>NewToCoding</h2>
+                    <p>Making coding accessible for everyone</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="#">Tutorials</a></li>
+                            <li><a href="#">Documentation</a></li>
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Roadmaps</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h3>Community</h3>
+                        <ul>
+                            <li><a href="#">Forums</a></li>
+                            <li><a href="#">Discord</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="index.html#success-stories">Success Stories</a></li>
+                            <li><a href="#">Contribute</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 NewToCoding.com. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme toggle button -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

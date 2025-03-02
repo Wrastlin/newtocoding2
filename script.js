@@ -77,13 +77,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const typingTextElement = document.getElementById('typing-text');
     const typingCursor = document.querySelector('.typing-cursor');
     const phrasesToType = [
-        'HTML & CSS',
-        'JavaScript',
-        'Python',
-        'React',
-        'Data Science',
-        'Web Development',
-        'App Development'
+        'AI-powered websites',
+        'Chatbots that solve problems',
+        'Automation tools',
+        'Data visualizations',
+        'Personal assistants',
+        'Custom workflow solutions'
     ];
     
     let phraseIndex = 0;
@@ -623,4 +622,59 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Call tech icons initialization on page load
     window.addEventListener('load', initTechIcons);
+    
+    // Function to load YouTube video
+    function loadLatestYouTubeVideo() {
+        // This would typically fetch from an API or CMS
+        // For now, we'll use a placeholder or a hardcoded video ID
+        const videoContainer = document.querySelector('.video-container');
+        const placeholderMessage = document.querySelector('.placeholder-message');
+        
+        // Example: Replace with your actual video when available
+        const videoId = ''; // Empty for now
+        
+        if (videoId) {
+            placeholderMessage.style.display = 'none';
+            
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
+            iframe.title = "Latest YouTube Video";
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+            iframe.allowFullscreen = true;
+            
+            videoContainer.appendChild(iframe);
+            
+            // Update video title and description
+            const videoTitle = document.querySelector('.video-info h3');
+            const videoDescription = document.querySelector('.video-description');
+            
+            // This would come from an API in a real implementation
+            videoTitle.textContent = "Getting Started with NewToCoding";
+            videoDescription.textContent = "Learn how our platform can help you start your coding journey and solve real problems fast.";
+        }
+    }
+    
+    // Handle missing features with explanatory tooltips
+    function setupFeatureTooltips() {
+        const futureLinks = document.querySelectorAll('a[href="#"]');
+        
+        futureLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if it's in a section marked as future
+                const isInFuture = link.closest('.future-feature') !== null;
+                
+                if (isInFuture) {
+                    alert('This feature is coming soon! We\'re working hard to build our community.');
+                } else {
+                    alert('This feature is under development and will be available soon.');
+                }
+            });
+        });
+    }
+    
+    // Initialize new features
+    loadLatestYouTubeVideo();
+    setupFeatureTooltips();
 }); 
