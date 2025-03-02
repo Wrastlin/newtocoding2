@@ -4,6 +4,7 @@
     src: url('fonts/FiraCode-VariableFont_wght.ttf') format('truetype');
     font-weight: 300 700;
     font-style: normal;
+    font-display: swap; /* Improve font loading performance */
 }
 
 :root {
@@ -88,6 +89,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 body {
@@ -96,6 +98,48 @@ body {
     background-color: var(--bg-color);
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    width: 100%;
+}
+
+/* Fix for particles background to prevent scrolling issues */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Reduce particles opacity in dark mode for better contrast */
+.dark-theme #particles-js {
+    opacity: 0.3;
+}
+
+/* Disable particle animations on mobile for better performance */
+@media (max-width: 768px) {
+    #particles-js {
+        opacity: 0.3;
+    }
+    
+    .dark-theme #particles-js {
+        opacity: 0.15;
+    }
+}
+
+/* Completely hide particles on very small screens or when battery is low */
+@media (max-width: 480px), (prefers-reduced-motion: reduce) {
+    #particles-js {
+        opacity: 0.2;
+    }
 }
 
 img {
@@ -967,31 +1011,39 @@ footer {
 @media (max-width: 1024px) {
     .hero .container {
         flex-direction: column;
+        padding: 0 20px;
     }
     
     .hero-content,
     .hero-image {
         width: 100%;
+        max-width: 100%;
     }
     
     .hero-content {
         text-align: center;
+        padding: 20px 0;
     }
     
     .hero-buttons {
         justify-content: center;
+        flex-wrap: wrap;
     }
     
     .code-window {
-        margin: 0 auto;
+        margin: 30px auto 0;
+        max-width: 100%;
+        overflow-x: hidden;
     }
     
     .contact-wrapper {
         flex-direction: column;
+        gap: 30px;
     }
     
     .footer-content {
         flex-direction: column;
+        gap: 30px;
     }
     
     /* Success Stories responsive styles */
@@ -1001,43 +1053,138 @@ footer {
     
     .story-image {
         flex: 0 0 200px;
+        margin: 0 auto;
+    }
+    
+    .container {
+        padding: 0 20px;
     }
 }
 
 @media (max-width: 768px) {
+    /* Improved header for mobile */
+    header {
+        height: auto;
+        padding: 10px 0;
+    }
+    
+    .logo h1 {
+        font-size: 1.2rem;
+    }
+    
+    .code-brackets {
+        font-size: 1.2rem;
+    }
+    
+    /* Improved mobile spacing */
+    section {
+        padding: 40px 0;
+        margin-top: 0;
+    }
+    
+    /* Better text rendering on mobile */
+    .hero-content h1 {
+        font-size: 2rem;
+        line-height: 1.3;
+        margin-bottom: 15px;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    /* Fix button layout on mobile */
+    .hero-buttons {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    /* Improved card layouts */
+    .benefits,
+    .resource-tracks,
+    .community-features,
+    .community-stats,
+    .content-grid,
+    .posts-grid,
+    .games-grid,
+    .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 10px;
+    }
+    
+    /* Better form rendering on mobile */
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 12px;
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+    
+    /* Fix touchable areas */
+    .btn-primary, .btn-secondary, 
+    nav ul.active li a,
+    .social-icons a {
+        padding: 12px 20px;
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Improved code window for mobile */
+    .code-window {
+        font-size: 0.8rem;
+        margin: 20px 0;
+    }
+    
+    .code-editor pre {
+        padding: 10px;
+    }
+    
+    /* Better mobile form experience */
+    .contact-form {
+        width: 100%;
+    }
+    
     .section-header h2 {
         font-size: 2rem;
-    }
-    
-    nav ul {
-        display: none;
-    }
-    
-    .menu-toggle {
-        display: block;
+        text-align: center;
     }
     
     .hero-content h1 {
         font-size: 2.2rem;
+        line-height: 1.3;
     }
     
     .benefits,
     .resource-tracks,
-    .community-features {
+    .community-features,
+    .community-stats,
+    .content-grid,
+    .posts-grid,
+    .games-grid,
+    .tools-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
     
     .community-cta {
         flex-direction: column;
+        gap: 20px;
     }
     
     .footer-links {
         grid-template-columns: 1fr;
+        gap: 30px;
     }
     
     .footer-bottom {
         flex-direction: column;
         text-align: center;
+        gap: 15px;
     }
     
     /* Success Stories responsive styles */
@@ -1055,39 +1202,82 @@ footer {
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
     section {
-        padding: 60px 0;
+        padding: 30px 0;
+    }
+    
+    /* Improve readability on small screens */
+    .section-header h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .section-header p {
+        font-size: 0.95rem;
+    }
+    
+    /* Improved hero section on small screens */
+    .hero {
+        padding-top: 100px;
     }
     
     .hero-content h1 {
         font-size: 1.8rem;
     }
     
-    .hero-buttons {
-        flex-direction: column;
+    /* Fix card padding on mobile */
+    .benefit-card, .feature, .content-card, .resource-card {
+        padding: 15px;
     }
     
+    /* Center align elements on small screens */
+    .footer-bottom, .footer-logo, .community-cta {
+        text-align: center;
+    }
+    
+    /* Improve touch targets on very small screens */
     .btn-primary, .btn-secondary {
         width: 100%;
         margin: 5px 0;
+        padding: 14px 20px;
     }
     
-    /* Success Stories responsive styles */
-    .story-role {
+    /* Fix feature badges */
+    .feature-badge {
+        top: 5px;
+        right: 5px;
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+    
+    .tool-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .tool-icon i {
+        font-size: 24px;
+    }
+    
+    .tool-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .benefit-card {
+        padding: 20px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 10px 20px;
         font-size: 0.9rem;
-    }
-    
-    .story-text {
-        font-size: 0.9rem;
-    }
-    
-    .stories-cta {
-        flex-direction: column;
-    }
-    
-    .stories-cta a {
-        width: 100%;
-        margin: 5px 0;
     }
 }
 
@@ -1126,7 +1316,7 @@ header.scrolled {
 nav ul.active {
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     top: var(--header-height);
     left: 0;
     width: 100%;
@@ -1134,10 +1324,54 @@ nav ul.active {
     padding: 20px;
     box-shadow: var(--shadow-md);
     z-index: 99;
+    height: auto;
+    max-height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 101;
+    transition: all 0.3s ease;
 }
 
 .menu-toggle.active i::before {
     content: "\f00d";
+}
+
+.dark-theme nav ul.active {
+    background-color: var(--card-bg-dark);
+    border-top: 1px solid var(--border-color-dark);
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    nav ul {
+        display: none;
+    }
+    
+    nav ul.active li {
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    nav ul.active li a {
+        display: block;
+        padding: 10px;
+        width: 100%;
+    }
+    
+    header .container {
+        justify-content: space-between;
+        padding: 0 20px;
+    }
 }
 
 /* Dark theme styles */
@@ -1329,27 +1563,42 @@ nav ul.active {
 /* Floating tech icons */
 .floating-icons {
     position: absolute;
-    width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
-    z-index: 1;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
+    z-index: 1;
     overflow: hidden;
 }
 
 .tech-icon {
     position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.6);
-    box-shadow: var(--shadow-sm);
-    animation: float 8s ease-in-out infinite;
-    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 6s ease-in-out infinite;
+    will-change: transform;
+}
+
+/* Optimizations for mobile */
+@media (max-width: 768px) {
+    .floating-icons {
+        display: none; /* Hide on mobile for better performance */
+    }
+}
+
+/* Reduce floating icon animations for devices that prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .tech-icon {
+        animation: none !important;
+        transform: none !important;
+    }
 }
 
 .dark-theme .tech-icon {
@@ -2993,4 +3242,44 @@ nav ul.active {
 
 .dark-theme .tool-link.secondary:hover {
   color: white;
+}
+
+/* Performance optimizations to prevent layout shifts and glitches */
+.hero-content, .hero-image, .floating-icons, .tech-icon,
+.benefit-card, .resource-card, .feature, .content-card,
+.code-window, .social-icons a {
+    will-change: transform, opacity;
+    transform: translateZ(0); /* Force hardware acceleration for smoother animations */
+    backface-visibility: hidden;
+}
+
+/* Optimize animations for mobile */
+@media (max-width: 768px) {
+    .floating-icons {
+        display: none; /* Hide floating animations on mobile for better performance */
+    }
+    
+    /* Simplify animations on mobile */
+    .fade-in, .animated, .reveal-text, .animated-title {
+        animation-duration: 0.3s;
+    }
+    
+    /* Fix tech icons positioning on mobile */
+    .tech-icon {
+        transform: none !important;
+        animation: none !important;
+    }
+    
+    /* Optimize code window for mobile */
+    .code-window {
+        transform: none !important;
+        transition: box-shadow 0.3s ease;
+        max-width: 100%;
+        margin: 20px auto 0;
+    }
+    
+    /* Improve mobile menu performance */
+    nav ul.active {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
 }

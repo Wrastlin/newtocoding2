@@ -1,5 +1,8 @@
 // Wait for DOM to fully load
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if using mobile device
+    const isMobile = window.innerWidth <= 768;
+    
     // Mobile menu toggle
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('nav ul');
@@ -9,14 +12,23 @@ document.addEventListener('DOMContentLoaded', function() {
             navMenu.classList.toggle('active');
             menuToggle.classList.toggle('active');
         });
+        
+        // Close menu when clicking a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
     }
     
-    // Initialize particles.js if available
+    // Initialize particles.js with optimized settings for better performance
     if (window.particlesJS && document.getElementById('particles-js')) {
         particlesJS('particles-js', {
             "particles": {
                 "number": {
-                    "value": 80,
+                    "value": isMobile ? 20 : 40, // Reduce particles on mobile
                     "density": {
                         "enable": true,
                         "value_area": 800
@@ -33,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 },
                 "opacity": {
-                    "value": 0.5,
+                    "value": isMobile ? 0.2 : 0.3, // Reduced opacity on mobile
                     "random": false
                 },
                 "size": {
@@ -41,29 +53,36 @@ document.addEventListener('DOMContentLoaded', function() {
                     "random": true
                 },
                 "line_linked": {
-                    "enable": true,
+                    "enable": !isMobile, // Disable lines on mobile
                     "distance": 150,
                     "color": "#4361ee",
-                    "opacity": 0.4,
+                    "opacity": 0.3,
                     "width": 1
                 },
                 "move": {
                     "enable": true,
-                    "speed": 2,
+                    "speed": isMobile ? 1 : 2, // Reduced speed on mobile
                     "direction": "none",
                     "random": false,
-                    "out_mode": "out"
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
                 }
             },
             "interactivity": {
                 "detect_on": "canvas",
                 "events": {
                     "onhover": {
-                        "enable": true,
+                        "enable": !isMobile, // Disable hover interactions on mobile
                         "mode": "grab"
                     },
                     "onclick": {
-                        "enable": true,
+                        "enable": !isMobile, // Disable click interactions on mobile
                         "mode": "push"
                     },
                     "resize": true
@@ -72,6 +91,52 @@ document.addEventListener('DOMContentLoaded', function() {
             "retina_detect": true
         });
     }
+    
+    // Super-optimized scroll handling
+    let lastScrollTop = 0;
+    let ticking = false;
+    let scrollTimeout;
+    const scrollThreshold = 50; // ms between scroll events
+    
+    function optimizedScrollHandler() {
+        const currentScrollTop = window.scrollY;
+        
+        // Only process if we've scrolled a meaningful amount
+        if (Math.abs(lastScrollTop - currentScrollTop) > 5) {
+            lastScrollTop = currentScrollTop;
+            
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    // Handle all scroll-based effects here
+                    animateOnScroll();
+                    checkStatsVisibility();
+                    
+                    // Header scroll effect
+                    const header = document.querySelector('header');
+                    if (header) {
+                        if (currentScrollTop > 50) {
+                            header.classList.add('scrolled');
+                        } else {
+                            header.classList.remove('scrolled');
+                        }
+                    }
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        }
+    }
+    
+    // Throttled scroll event
+    window.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(optimizedScrollHandler, scrollThreshold);
+    });
+    
+    // Handle immediate scroll position on load
+    optimizedScrollHandler();
     
     // Typing effect in hero section
     const typingTextElement = document.getElementById('typing-text');
@@ -167,19 +232,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Header scroll effect
-    const header = document.querySelector('header');
-    
-    if (header) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-    }
-    
     // Simple form validation
     const contactForm = document.querySelector('.contact-form');
     
@@ -230,7 +282,6 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     // Run on scroll and initially
-    window.addEventListener('scroll', animateOnScroll);
     animateOnScroll();
     
     // Interactive code window
@@ -677,4 +728,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize new features
     loadLatestYouTubeVideo();
     setupFeatureTooltips();
+    
+    // Add passive event listeners for better performance on touch devices
+    const passiveEventSettings = { passive: true };
+    document.addEventListener('touchstart', function(){}, passiveEventSettings);
+    document.addEventListener('touchmove', function(){}, passiveEventSettings);
+    
+    // Optimize animations based on device capabilities
+    function optimizeAnimations() {
+        if (isMobile) {
+            // Reduce or disable complex animations on mobile
+            const animatedElements = document.querySelectorAll('.animated, .fade-in, .reveal-text');
+            animatedElements.forEach(el => {
+                el.style.animationDuration = '0.3s';
+            });
+            
+            // Disable floating animations on mobile
+            const floatingElements = document.querySelectorAll('.floating-icons, .tech-icon');
+            floatingElements.forEach(el => {
+                el.style.animation = 'none';
+            });
+        }
+    }
+    
+    // Call optimization function
+    optimizeAnimations();
+    
+    // Handle resize events for responsive design
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            // Re-check device type
+            const wasIsMobile = isMobile;
+            const newIsMobile = window.innerWidth <= 768;
+            
+            // Only re-optimize if device type changed
+            if (wasIsMobile !== newIsMobile) {
+                optimizeAnimations();
+            }
+        }, 250);
+    });
 }); 
