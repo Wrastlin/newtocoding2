@@ -8,16 +8,145 @@
     <!-- Mobile optimization meta tags -->
     <meta name="theme-color" content="#4361ee">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
     
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>">
+    
     <!-- Preload critical resources -->
     <link rel="preload" href="fonts/FiraCode-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
-    <!-- Stylesheets in order of importance -->
+    <link rel="preload" href="styles.min.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <!-- Improved font loading with font-display:swap -->
+    <style>
+        /* Critical CSS for first render */
+        @font-face {
+            font-family: 'Fira Code';
+            src: url('fonts/FiraCode-VariableFont_wght.ttf') format('truetype');
+            font-weight: 300 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafc;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container { 
+            width: 100%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+        }
+        header { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            background-color: rgba(255, 255, 255, 0.95); 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); 
+            z-index: 1000; 
+            transition: all 0.3s ease; 
+        }
+    </style>
+    
+    <!-- Critical CSS first - load immediately -->
+    <link rel="stylesheet" href="styles.min.css">
     <link rel="stylesheet" href="base.css">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Font Awesome - load normally -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <meta name="description" content="A community resource for anyone to learn code and accomplish their goals">
+
+    <!-- Add this script in the head section to implement lazy loading -->
+    <script>
+        // Intersection Observer for lazy loading
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if browser supports IntersectionObserver
+            if ('IntersectionObserver' in window) {
+                const lazyImages = document.querySelectorAll('img[data-src]');
+                
+                const imageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            
+                            // If there's a srcset data attribute, set that too
+                            if (img.dataset.srcset) {
+                                img.srcset = img.dataset.srcset;
+                            }
+                            
+                            img.classList.remove('lazy');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(function(img) {
+                    imageObserver.observe(img);
+                });
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                let active = false;
+                
+                const lazyLoad = function() {
+                    if (active === false) {
+                        active = true;
+                        
+                        setTimeout(function() {
+                            const lazyImages = document.querySelectorAll('img[data-src]');
+                            
+                            lazyImages.forEach(function(img) {
+                                if ((img.getBoundingClientRect().top <= window.innerHeight && img.getBoundingClientRect().bottom >= 0) && getComputedStyle(img).display !== 'none') {
+                                    img.src = img.dataset.src;
+                                    
+                                    if (img.dataset.srcset) {
+                                        img.srcset = img.dataset.srcset;
+                                    }
+                                    
+                                    img.classList.remove('lazy');
+                                    
+                                    if (lazyImages.length === 0) {
+                                        document.removeEventListener('scroll', lazyLoad);
+                                        window.removeEventListener('resize', lazyLoad);
+                                        window.removeEventListener('orientationchange', lazyLoad);
+                                    }
+                                }
+                            });
+                            
+                            active = false;
+                        }, 200);
+                    }
+                };
+                
+                document.addEventListener('scroll', lazyLoad);
+                window.addEventListener('resize', lazyLoad);
+                window.addEventListener('orientationchange', lazyLoad);
+                window.addEventListener('load', lazyLoad);
+            }
+        });
+    </script>
+
+    <!-- Add this style to prevent content shift during lazy loading -->
+    <style>
+        .lazy {
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+        
+        img:not(.lazy) {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
     <!-- Particles background container -->
@@ -25,19 +154,18 @@
     
     <header>
         <div class="container">
-            <div class="logo">
-                <span class="code-brackets">&lt; / &gt;</span>
-                <h1>NewToCoding</h1>
-            </div>
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <span class="code-brackets">&lt; / &gt;</span>
+                    <h1>NewToCoding</h1>
+                </div>
+            </a>
             <nav>
                 <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#resources">Resources</a></li>
                     <li><a href="posts.html">Posts</a></li>
                     <li><a href="games.html">Games</a></li>
                     <li><a href="tools.html">Tools</a></li>
-                    <li><a href="#community">Community</a></li>
-                    <li><a href="#contact" class="btn-primary">Join Us</a></li>
+                    <li><a href="#contact" class="btn-primary">Design the Future</a></li>
                 </ul>
             </nav>
             <div class="menu-toggle">
@@ -111,78 +239,79 @@ helloWorld();</code></pre>
     <section id="about" class="about">
         <div class="container">
             <div class="section-header">
-                <h2 class="reveal-text">Solve Real Problems with Code</h2>
-                <p>Learning to code + using AI tools unlocks solutions to problems you never thought possible.</p>
+                <h2 class="reveal-text">Reimagine What's Possible</h2>
+                <p>The world of technology has fundamentally changed, and we're here to guide you through this new era.</p>
             </div>
-            <div class="benefits">
-                <div class="benefit-card" data-tilt>
-                    <div class="icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
-                    <h3>AI-Powered Problem Solving</h3>
-                    <p>Combine your ideas with modern AI tools to build solutions you never thought were within reach.</p>
+            <div class="mission-story">
+                <div class="story-block animated-block" data-animation="block-1">
+                    <h3><span class="gradient-text typing-animation" data-animation="typing-1">The New Creative Revolution</span></h3>
+                    <p class="slide-in-text" data-animation="slide-1">People can accomplish far more with AI than ever before, and the barrier to entry has never been lower. What once required years of technical expertise can now be achieved in minutes with the right guidance.</p>
+                    <p class="slide-in-text" data-animation="slide-2">Our mission is to connect you with these powerful tools and skills, helping you reimagine what's possible and create solutions that were once beyond reach. Whether you're building a website, automating daily tasks, or solving complex problems, the combination of basic coding knowledge and AI tools creates a superpower that's accessible to everyone.</p>
                 </div>
-                <div class="benefit-card" data-tilt>
-                    <div class="icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h3>Build Without Barriers</h3>
-                    <p>Create websites, automate tasks, and build tools with less code than ever before using AI assistance.</p>
+                
+                <div class="story-block animated-block" data-animation="block-3">
+                    <h3><span class="gradient-text typing-animation" data-animation="typing-2">Breaking Down Barriers</span></h3>
+                    <p class="slide-in-text" data-animation="slide-3">We believe that technology should be accessible to everyone. That's why our platform focuses on practical solutions, real-world applications, and step-by-step guidance that makes sense even if you've never written a line of code before.</p>
+                    <p class="slide-in-text" data-animation="slide-4">By combining your creativity and problem-solving abilities with the technical power of AI tools, you can create solutions that were previously unimaginable. The future belongs to those who can effectively collaborate with AI, and we're here to make sure that includes you.</p>
                 </div>
-                <div class="benefit-card" data-tilt>
-                    <div class="icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>AI as Your Co-Pilot</h3>
-                    <p>Let AI handle complex coding while you focus on creativity and problem-solving - perfect for beginners!</p>
-                </div>
-                <div class="benefit-card" data-tilt>
-                    <div class="icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Learn Together</h3>
-                    <p>Join a supportive community of fellow beginners exploring the new frontier of coding with AI.</p>
+                
+                <div class="cta-container animated-block" data-animation="block-4">
+                    <p class="emphasis-text typewriter centered-text" data-animation="typewriter-1">The possibilities are limitless.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="ai-tools" class="ai-tools">
+    <section id="builder-bot" class="builder-bot">
         <div class="container">
             <div class="section-header">
-                <h2 class="reveal-text">AI Tools That Make Coding Easier</h2>
-                <p>These modern tools transform coding from a technical challenge into a creative superpower.</p>
+                <h2 class="reveal-text">Builder Bot - Design Your Next Big Project</h2>
+                <p>Get instant help designing your next project with our AI-powered Builder Bot. Just describe what you want to build!</p>
             </div>
-            <div class="tools-wrapper">
-                <div class="tool-card" data-tilt>
-                    <div class="tool-icon">
-                        <i class="fas fa-brain"></i>
+            <div class="builder-bot-container">
+                <div class="builder-bot-features">
+                    <div class="feature-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Idea Generation</h3>
+                        <p>Turn your vague concepts into concrete project plans</p>
                     </div>
-                    <h3>AI Code Assistants</h3>
-                    <p class="tool-description">Tools like ChatGPT, GitHub Copilot, and Claude help write code for you based on simple descriptions of what you want to build.</p>
-                    <div class="beginner-friendly-badge">
-                        <i class="fas fa-check-circle"></i> Beginner Friendly
+                    <div class="feature-item">
+                        <i class="fas fa-code"></i>
+                        <h3>Technical Guidance</h3>
+                        <p>Get recommendations on technologies and frameworks</p>
                     </div>
-                </div>
-                <div class="tool-card" data-tilt>
-                    <div class="tool-icon">
-                        <i class="fas fa-wand-magic-sparkles"></i>
-                    </div>
-                    <h3>No-Code/Low-Code Platforms</h3>
-                    <p class="tool-description">Build apps and websites with minimal coding using drag-and-drop interfaces enhanced by AI to handle the technical details.</p>
-                    <div class="beginner-friendly-badge">
-                        <i class="fas fa-check-circle"></i> Beginner Friendly
+                    <div class="feature-item">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Project Planning</h3>
+                        <p>Break down your project into manageable steps</p>
                     </div>
                 </div>
-                <div class="tool-card" data-tilt>
-                    <div class="tool-icon">
-                        <i class="fas fa-language"></i>
+                
+                <!-- Build Topics Scrollwheel -->
+                <div class="build-topics-container">
+                    <div class="topics-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>What will you build today?</h3>
                     </div>
-                    <h3>Natural Language Interfaces</h3>
-                    <p class="tool-description">Describe what you want in plain English, and AI translates your ideas into functional code that actually works.</p>
-                    <div class="beginner-friendly-badge">
-                        <i class="fas fa-check-circle"></i> Beginner Friendly
+                    <div class="topics-scrollwheel">
+                        <div class="scrollwheel-content">
+                            <!-- Content will be dynamically generated by JavaScript -->
+                        </div>
                     </div>
+                    <div class="topics-scrollwheel-2">
+                        <div class="scrollwheel-content-2">
+                            <!-- Content will be dynamically generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chatbox-container">
+                    <iframe
+                        src="https://www.chatbase.co/chatbot-iframe/6VzzgWN1r_WHQMnSt-Ci7"
+                        width="100%"
+                        style="height: 100%; min-height: 700px"
+                        frameborder="0"
+                    ></iframe>
                 </div>
             </div>
         </div>
@@ -194,37 +323,251 @@ helloWorld();</code></pre>
                 <h2 class="reveal-text">Latest Content</h2>
                 <p>Check out our latest tutorials, projects, and resources to keep you up-to-date with the latest in coding.</p>
             </div>
-            <div class="content-grid">
-                <div class="content-card">
-                    <div class="card-header">
+            <div class="content-showcase">
+                <!-- Card 1 -->
+                <div class="showcase-card">
+                    <div class="card-image">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop" alt="AI in Coding Introduction" class="lazy">
+                        <div class="card-overlay">
+                            <span class="status-badge available">Available Now</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
                         <h3>AI in Coding Introduction</h3>
-                    </div>
-                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="fas fa-play-circle"></i> Video</span>
+                            <span><i class="fas fa-clock"></i> 15 min</span>
+                        </div>
                         <p>Learn how AI tools can be used to enhance your coding skills and productivity.</p>
-                        <a href="#" class="btn-primary">Watch Now</a>
+                        <div class="card-tags">
+                            <span>Beginner</span>
+                            <span>AI Tools</span>
+                        </div>
+                        <a href="#" class="card-btn">
+                            <span>Watch Now</span>
+                            <i class="fas fa-play"></i>
+                        </a>
                     </div>
-                    <span class="feature-badge available">Available Now</span>
                 </div>
-                <div class="content-card">
-                    <div class="card-header">
+                
+                <!-- Card 2 -->
+                <div class="showcase-card">
+                    <div class="card-image">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2128&auto=format&fit=crop" alt="AI-Powered Website Project" class="lazy">
+                        <div class="card-overlay">
+                            <span class="status-badge coming-soon">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
                         <h3>AI-Powered Website Project</h3>
-                    </div>
-                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="fas fa-code"></i> Project</span>
+                            <span><i class="fas fa-calendar"></i> April 2025</span>
+                        </div>
                         <p>Check out our latest project that combines AI and web development.</p>
-                        <a href="#" class="btn-primary">View Project</a>
+                        <div class="card-tags">
+                            <span>Web Dev</span>
+                            <span>AI Integration</span>
+                        </div>
+                        <a href="#" class="card-btn soon">
+                            <span>View Project</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
-                    <span class="feature-badge coming-soon">Coming Soon</span>
                 </div>
-                <div class="content-card">
-                    <div class="card-header">
+                
+                <!-- Card 3 -->
+                <div class="showcase-card">
+                    <div class="card-image">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=2070&auto=format&fit=crop" alt="AI Tools Comparison" class="lazy">
+                        <div class="card-overlay">
+                            <span class="status-badge coming-soon">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
                         <h3>AI Tools Comparison</h3>
-                    </div>
-                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="fas fa-file-alt"></i> Guide</span>
+                            <span><i class="fas fa-calendar"></i> May 2025</span>
+                        </div>
                         <p>Compare different AI tools and find the one that best suits your coding needs.</p>
-                        <a href="#" class="btn-primary">Read Comparison</a>
+                        <div class="card-tags">
+                            <span>AI Tools</span>
+                            <span>Comparison</span>
+                        </div>
+                        <a href="#" class="card-btn soon">
+                            <span>Read Comparison</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
-                    <span class="feature-badge coming-soon">Coming Soon</span>
                 </div>
+            </div>
+            
+            <div class="view-all-content">
+                <a href="posts.html" class="view-all-btn">
+                    <span>View All Content</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Learning Roadmap Section -->
+    <section id="learning-roadmap" class="learning-roadmap">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="reveal-text">Learning Roadmap</h2>
+                <p>Follow these structured learning paths to build your coding skills from beginner to advanced.</p>
+            </div>
+            
+            <div class="roadmap-tabs">
+                <button class="roadmap-tab active" data-path="web-dev">Web Development</button>
+                <button class="roadmap-tab" data-path="data-science">Data Science</button>
+                <button class="roadmap-tab" data-path="mobile-dev">Mobile Development</button>
+                <button class="roadmap-tab" data-path="ai-ml">AI & Machine Learning</button>
+            </div>
+            
+            <div class="roadmap-content active" id="web-dev-path">
+                <div class="roadmap-intro">
+                    <div class="intro-text">
+                        <h3>Web Development Path</h3>
+                        <p>Learn to build beautiful, interactive websites and web applications. This path takes you from the basics of HTML and CSS to advanced frameworks and deployment.</p>
+                        <div class="path-meta">
+                            <span><i class="fas fa-clock"></i> 3-6 months</span>
+                            <span><i class="fas fa-signal"></i> Beginner to Intermediate</span>
+                            <span><i class="fas fa-laptop-code"></i> 15+ projects</span>
+                        </div>
+                    </div>
+                    <div class="intro-image">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=800&auto=format&fit=crop" alt="Web Development">
+                    </div>
+                </div>
+                
+                <div class="roadmap-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker completed">
+                            <span>1</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>HTML & CSS Fundamentals</h4>
+                            <p>Learn the building blocks of the web. Create your first web pages with HTML structure and CSS styling.</p>
+                            <div class="timeline-resources">
+                                <a href="#" class="resource-link"><i class="fas fa-play-circle"></i> Video Tutorial</a>
+                                <a href="#" class="resource-link"><i class="fas fa-file-alt"></i> Beginner's Guide</a>
+                                <a href="#" class="resource-link"><i class="fas fa-code"></i> Practice Exercises</a>
+                            </div>
+                            <div class="key-concepts">
+                                <span>HTML Structure</span>
+                                <span>CSS Selectors</span>
+                                <span>Box Model</span>
+                                <span>Responsive Design</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker in-progress">
+                            <span>2</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>JavaScript Essentials</h4>
+                            <p>Add interactivity to your websites with JavaScript. Learn programming fundamentals and DOM manipulation.</p>
+                            <div class="timeline-resources">
+                                <a href="#" class="resource-link"><i class="fas fa-play-circle"></i> Interactive Course</a>
+                                <a href="#" class="resource-link"><i class="fas fa-file-alt"></i> JavaScript Guide</a>
+                                <a href="#" class="resource-link"><i class="fas fa-code"></i> Coding Challenges</a>
+                            </div>
+                            <div class="key-concepts">
+                                <span>Variables & Functions</span>
+                                <span>DOM Manipulation</span>
+                                <span>Event Handling</span>
+                                <span>Async JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker upcoming">
+                            <span>3</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Frontend Frameworks</h4>
+                            <p>Learn modern frontend frameworks like React, Vue, or Angular to build complex, interactive web applications.</p>
+                            <div class="timeline-resources">
+                                <a href="#" class="resource-link"><i class="fas fa-play-circle"></i> Framework Comparison</a>
+                                <a href="#" class="resource-link"><i class="fas fa-file-alt"></i> React Fundamentals</a>
+                                <a href="#" class="resource-link"><i class="fas fa-code"></i> Project Tutorial</a>
+                            </div>
+                            <div class="key-concepts">
+                                <span>Components</span>
+                                <span>State Management</span>
+                                <span>Routing</span>
+                                <span>API Integration</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker upcoming">
+                            <span>4</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Backend Development</h4>
+                            <p>Build server-side applications with Node.js, Express, and databases to create full-stack web applications.</p>
+                            <div class="timeline-resources">
+                                <a href="#" class="resource-link"><i class="fas fa-play-circle"></i> Backend Basics</a>
+                                <a href="#" class="resource-link"><i class="fas fa-file-alt"></i> API Design Guide</a>
+                                <a href="#" class="resource-link"><i class="fas fa-code"></i> Full-Stack Project</a>
+                            </div>
+                            <div class="key-concepts">
+                                <span>Server Architecture</span>
+                                <span>RESTful APIs</span>
+                                <span>Database Design</span>
+                                <span>Authentication</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker upcoming">
+                            <span>5</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Deployment & DevOps</h4>
+                            <p>Learn to deploy your applications to the web and implement continuous integration/deployment workflows.</p>
+                            <div class="timeline-resources">
+                                <a href="#" class="resource-link"><i class="fas fa-play-circle"></i> Deployment Guide</a>
+                                <a href="#" class="resource-link"><i class="fas fa-file-alt"></i> DevOps Basics</a>
+                                <a href="#" class="resource-link"><i class="fas fa-code"></i> CI/CD Tutorial</a>
+                            </div>
+                            <div class="key-concepts">
+                                <span>Cloud Hosting</span>
+                                <span>Docker</span>
+                                <span>CI/CD Pipelines</span>
+                                <span>Performance Optimization</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="roadmap-cta">
+                    <h3>Ready to start your web development journey?</h3>
+                    <p>Get personalized guidance and track your progress with our interactive learning platform.</p>
+                    <a href="#" class="btn-primary">Start Learning Now</a>
+                </div>
+            </div>
+            
+            <!-- Other roadmap content sections would be added here but hidden by default -->
+            <div class="roadmap-content" id="data-science-path">
+                <!-- Data Science path content would go here -->
+            </div>
+            
+            <div class="roadmap-content" id="mobile-dev-path">
+                <!-- Mobile Development path content would go here -->
+            </div>
+            
+            <div class="roadmap-content" id="ai-ml-path">
+                <!-- AI & Machine Learning path content would go here -->
             </div>
         </div>
     </section>
@@ -476,9 +819,10 @@ helloWorld();</code></pre>
         <i class="fas fa-arrow-up"></i>
     </a>
 
-    <!-- Particles.js -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
-    <script src="script.js"></script>
+    <!-- Load particles.js with defer to improve initial load time -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+    
+    <!-- Load main script with defer -->
+    <script src="script.js" defer></script>
 </body>
 </html> 
